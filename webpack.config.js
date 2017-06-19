@@ -55,7 +55,12 @@ module.exports = (config) => {
                             { loader: 'css-loader', options: { modules: true, camelCase: true, sourcemaps: true, localIdentName: '[name]__[local]__[hash:base64:5]' }}
                         ), 
                         { 
-                            loader: 'postcss-loader'
+                            loader: 'postcss-loader',
+                            options: {
+                                config: {
+                                    path: `${__dirname}/postcss.config.js`
+                                }
+                            }
                         }
                     ]
                 },
