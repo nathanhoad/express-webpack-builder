@@ -16,7 +16,7 @@ module.exports = (config) => {
     }, config);
     
     if (config.show_deprecations) {
-        process.traceDeprecation = true
+        process.traceDeprecation = true;
     } else {
         process.noDeprecation = true;
     }

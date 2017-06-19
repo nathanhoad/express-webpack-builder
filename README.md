@@ -54,7 +54,7 @@ let config = Builder.webpackConfig({
         filename: 'client.hbs',
         chunks: ['client'],
         inject: false,
-        template: `${Builder.APP_ROOT_PATH}/app/server/client.hbs`,
+        template: `${Builder.APP_ROOT_PATH}/app/server/views/client.hbs`,
         favicon: `${Builder.APP_ROOT_PATH}/app/assets/favicon.png`,
         minify: {
             keepClosingSlash: true,
@@ -62,7 +62,7 @@ let config = Builder.webpackConfig({
             collapseWhitespace: true,
             removeRedundantAttributes: true
         }
-    });
+    })
 });
 
 config.output.path = `${Builder.APP_ROOT_PATH}/dist`;
