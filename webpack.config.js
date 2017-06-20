@@ -10,7 +10,7 @@ const APP_ROOT_PATH = require('app-root-path').toString();
 module.exports = (config) => {
     config = Object.assign({}, {
         environment: process.env.NODE_ENV,
-        app_root_path: config.app_root_path || APP_ROOT_PATH,
+        app_root_path: (config && config.app_root_path) ? config.app_root_path : APP_ROOT_PATH,
         show_deprecations: false,
         html_plugin: new HtmlPlugin()
     }, config);
