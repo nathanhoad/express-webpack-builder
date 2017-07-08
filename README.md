@@ -49,6 +49,18 @@ Or you can define more things:
 ```javascript
 const Builder = require('express-webpack-builder');
 
+
+module.exports = Builder.webpackConfig({
+    template: `${Builder.APP_ROOT_PATH}/app/server/views/client.html`,
+    favicon: `${Builder.APP_ROOT_PATH}/app/assets/favicon.png`
+});
+```
+
+Or be even more specific...
+
+```javascript
+const Builder = require('express-webpack-builder');
+
 let config = Builder.webpackConfig({
     html_plugin: new Builder.HtmlWebpackPlugin({
         filename: 'client.hbs',

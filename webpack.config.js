@@ -3,6 +3,7 @@ require('dotenv').load({ silent: true });
 const Webpack = require('webpack');
 const AutoPrefixer = require('autoprefixer');
 const HtmlPlugin = require('html-webpack-plugin');
+const Path = require('path');
 
 const APP_ROOT_PATH = require('app-root-path').toString();
 
@@ -11,8 +12,7 @@ module.exports = (config) => {
     config = Object.assign({}, {
         environment: process.env.NODE_ENV || 'development',
         app_root_path: (config && config.app_root_path) ? config.app_root_path : APP_ROOT_PATH,
-        show_deprecations: false,
-        html_plugin: new HtmlPlugin()
+        show_deprecations: false
     }, config);
     
     if (config.show_deprecations) {
@@ -98,6 +98,10 @@ module.exports = (config) => {
                         limit: 10000,
                         mimetype: 'image/svg+xml'
                     }
+                },
+                {
+                    test: /\.html$/,
+                    loader: 'html-loader'
                 }
             ],
         },
@@ -113,6 +117,28 @@ module.exports = (config) => {
     
     if (config.html_plugin) {
         webpack_config.plugins.push(config.html_plugin);
+    } else if (config.template !== false) {
+        let html_plugin_config = {
+            minify: {
+                keepClosingSlash: true,
+                removeComments: true,
+                collapseWhitespace: true,
+                removeRedundantAttributes: true
+            }
+        };
+        
+        if (config.template) {
+            html_plugin_config.template = config.template;
+            html_plugin_config.filename = Path.basename(config.template);
+        }
+        
+        if (config.favicon) {
+            html_plugin_config.favicon = config.favicon;
+        }
+        
+        webpack_config.plugins.push(new HtmlPlugin(html_plugin_config));
+    } else {
+        webpack_config.plugins.push(new HtmlPlugin());
     }
 
     if (PRODUCTION) {
