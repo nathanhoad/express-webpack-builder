@@ -73,7 +73,7 @@ function guessServerPath (config) {
         // Make sure it is requirable
         const test_server = require(package_config.main);
         if (typeof test_server.listen === "function") {
-            default_server_path = package_config.main;
+            default_server_path = Path.dirname(package_config.main);
         }
     } catch (e) {
         // Do nothing
