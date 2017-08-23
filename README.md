@@ -29,7 +29,7 @@ to `build()`:
 
 ```javascript
 Builder.build(process.argv, { 
-    server_path: `${Builder.APP_ROOT_PATH}/server` 
+    serverPath: `${Builder.APP_ROOT_PATH}/server` 
 });
 ```
 
@@ -62,7 +62,7 @@ Or be even more specific...
 const Builder = require('express-webpack-builder');
 
 let config = Builder.webpackConfig({
-    html_plugin: new Builder.HtmlWebpackPlugin({
+    htmlPlugin: new Builder.HtmlWebpackPlugin({
         filename: 'client.hbs',
         chunks: ['client'],
         inject: false,

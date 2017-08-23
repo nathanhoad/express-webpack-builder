@@ -31,7 +31,7 @@ module.exports = config => {
 
     const PRODUCTION = config.environment.toUpperCase() === 'PRODUCTION';
 
-    let webpack_config = {
+    let webpackConfig = {
         cache: true,
         entry: {
             client: [`${config.appRootPath}/${config.entry}`]
@@ -142,10 +142,10 @@ module.exports = config => {
         ]
     };
 
-    if (config.html_plugin) {
-        webpack_config.plugins.push(config.html_plugin);
+    if (config.htmlPlugin) {
+        webpackConfig.plugins.push(config.htmlPlugin);
     } else if (config.template !== false) {
-        let html_plugin_config = {
+        let htmlPluginConfig = {
             minify: {
                 keepClosingSlash: true,
                 removeComments: true,
@@ -155,24 +155,24 @@ module.exports = config => {
         };
 
         if (config.template) {
-            html_plugin_config.template = config.template;
-            html_plugin_config.filename = Path.basename(config.template);
+            htmlPluginConfig.template = config.template;
+            htmlPluginConfig.filename = Path.basename(config.template);
         }
 
         if (config.favicon) {
-            html_plugin_config.favicon = config.favicon;
+            htmlPluginConfig.favicon = config.favicon;
         }
 
-        webpack_config.plugins.push(new HtmlPlugin(html_plugin_config));
+        webpackConfig.plugins.push(new HtmlPlugin(htmlPluginConfig));
     } else {
-        webpack_config.plugins.push(new HtmlPlugin());
+        webpackConfig.plugins.push(new HtmlPlugin());
     }
 
     if (PRODUCTION) {
-        webpack_config.plugins.push(new Webpack.optimize.UglifyJsPlugin());
+        webpackConfig.plugins.push(new Webpack.optimize.UglifyJsPlugin());
     } else {
-        webpack_config.plugins.push(new Webpack.NamedModulesPlugin());
+        webpackConfig.plugins.push(new Webpack.NamedModulesPlugin());
     }
 
-    return webpack_config;
+    return webpackConfig;
 };
