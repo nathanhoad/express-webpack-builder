@@ -222,7 +222,7 @@ module.exports = {
             }
         ];
 
-        return new Listr(tasks).run().catch(error => console.error(error));
+        return new Listr(tasks).run().catch(error => process.exit());
     },
 
     HtmlWebpackPlugin: require('html-webpack-plugin')

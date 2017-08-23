@@ -100,20 +100,20 @@ function getWebpackConfig(args, config) {
 
 function guessServerPath(config) {
     // Try and guess where the server index is...
-    let default_server_path = 'app/server';
+    let defaultServerPath = 'app/server';
     try {
         const package = require(`${config.appRootPath}/package.json`);
 
         // Make sure it is requirable
-        const test_server = require(package.main);
-        if (typeof test_server.listen === 'function') {
-            default_server_path = Path.dirname(package.main);
+        const testServer = require(package.main);
+        if (typeof testServer.listen === 'function') {
+            defaultServerPath = package.main.replace('/index.js', '');
         }
     } catch (e) {
         // Do nothing
     }
 
-    return default_server_path;
+    return defaultServerPath;
 }
 
 module.exports = {
