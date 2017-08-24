@@ -108,6 +108,14 @@ Tasks.run = function(args, config, task) {
             console.error(error);
         });
 
+        // Handle Ctrl+C gracefully
+        process.stdin.setRawMode(true);
+        process.stdin.on('data', d => {
+            if (d[0] === 3 || d.toString() === 'q') {
+                process.exit();
+            }
+        });
+
         let listener;
         let compiler = Webpack(webpackConfig);
         let watcher;
@@ -128,7 +136,7 @@ Tasks.run = function(args, config, task) {
                         task.title = `Running at http://localhost:5000 ${Chalk.gray(
                             `updated at ${now()}`
                         )}`;
-                        task.output = 'Press Ctrl+C to stop';
+                        task.output = 'Press q to stop';
                     });
 
                     // Set up connection tracking so that we can destroy the server when a file changes
@@ -150,7 +158,7 @@ Tasks.run = function(args, config, task) {
                         task.title = `Running at http://localhost:5000 ${Chalk.gray(
                             `updated at ${now()}`
                         )}`;
-                        task.output = 'Press Ctrl+C to stop';
+                        task.output = 'Press q to stop';
                     }
                 })
             );
@@ -173,7 +181,7 @@ Tasks.run = function(args, config, task) {
 
             listener = server.listen(5000, () => {
                 task.title = `Running at http://localhost:5000`;
-                task.output = 'Press Ctrl+C to stop';
+                task.output = 'Press q to stop';
 
                 // Set up connection tracking so that we can destroy the server when a file changes
                 enableDestroy(listener);
