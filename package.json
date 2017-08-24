@@ -1,6 +1,6 @@
 {
     "name": "express-webpack-builder",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "description": "Webpack builder that comes with client and server hot reloading",
     "main": "index.js",
     "scripts": {
